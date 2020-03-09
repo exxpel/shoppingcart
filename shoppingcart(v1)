@@ -1,0 +1,98 @@
+package shoppingcart;
+import java.util.*;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.transform.Scale;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+
+
+public class ShoppingCart extends Application
+{
+    //Declare Variables here
+    //private label or textfield______
+    
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage)
+    {
+    //list view items book
+    ListView<String> listView = new ListView<>();
+    listView.setPrefSize(200, 170);
+    listView.getItems().addAll("I Did It Your Way, 11.95\n",
+                               "The History of Scotland, 14.50\n",
+                               "Learn Calculus in One Day, 29.95\n",
+                               "Feel the Stress, 18.50\n",
+                               "Great Poems, 12.95\n",
+                               "Europe on a Shoestring, 10.95\n",
+                               "The Life of Mozart, 14.50");
+    // create label to display the selection
+    Label selectedNameLabel = new Label("Select a Book");
+    //Button for selection
+    Button getButton = new Button("Add to Cart");
+    //Event for Add to cart button
+    getButton.setOnAction(event ->
+    {
+        //Get book
+        String selected = listView.getSelectionModel().getSelectedItem();
+        //Display selected item in label
+        selectedNameLabel.setText(selected);
+    });
+    
+    //Controls to VBox
+    VBox vbox = new VBox(10, listView, selectedNameLabel, getButton);
+    vbox.setPadding(new Insets(10));
+    vbox.setAlignment(Pos.CENTER);
+    
+    //Show
+    Scene scene = new Scene(vbox);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+    
+    
+    
+    
+    
+    
+    //storing in list view
+    //Button to add
+    //Button to subtract
+    //Event Handler
+    //Scene
+    //stage information
+        //primaryStage.setScene(scenename);
+       // primaryStage.setTitle("Shipping Cart");
+       // primaryStage.show();
+    //Button Click
+    
+    /*
+    class Namehere implements EventHandler<ActionEvent>
+            {
+                @Override
+                public void handle(ActionEvent event)
+                {
+                    //Code
+                }
+            }
+    */
+    
+    }
+}
