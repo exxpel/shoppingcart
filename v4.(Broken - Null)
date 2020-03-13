@@ -1,0 +1,103 @@
+package shoppingcart2;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.stage.Stage;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ComboBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.transform.Scale;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+
+
+public class ShoppingCart2 extends Application
+{
+    private JPanel listPanel;
+    private JPanel shoppingPanel;
+    private JPanel buttonsPanel;
+    private JList listItems;
+	
+	private JButton addButton;
+	private JButton removeButton;
+	private JButton clearButton;
+	private JButton checkoutButton;
+	
+	private String[] listArray = new String[7];
+	private java.awt.List cartItems = new java.awt.List();
+	
+	private final double salesTax = 0.06;
+    
+    public static void main(String[] args)
+    {
+        launch(args);
+    }
+    
+    @Override
+    public void start(Stage primaryStage) throws FileNotFoundException
+    {
+    //list view items book
+    ListView<String> listView = new ListView<>();
+    listView.setPrefSize(200, 170);
+    listView.getItems().addAll(listArray);
+    // create label to display the selection
+    Label selectedNameLabel = new Label("Select a Book");
+    //Button for selection
+    Button getButton = new Button("Add to Cart");
+    //Event for Add to cart button
+    getButton.setOnAction(event ->
+    {
+        //Get book
+        String selected = listView.getSelectionModel().getSelectedItem();
+        //Display selected item in label
+        selectedNameLabel.setText(selected);
+    });
+    
+    String line;
+		int index = 0;
+		
+		File file = new File("BookPrices.txt");
+		Scanner fileReader = new Scanner(file);
+		
+		while(fileReader.hasNext())
+		{
+			line = fileReader.nextLine();
+			String [] titles = line.split(",");
+			listArray[index] = titles[0];
+			index++;	
+		}
+    
+    //Controls to VBox
+    VBox vbox = new VBox(10, listView, selectedNameLabel, getButton);
+    vbox.setPadding(new Insets(10));
+    vbox.setAlignment(Pos.CENTER);
+    
+    //Show
+    Scene scene = new Scene(vbox);
+    primaryStage.setScene(scene);
+    primaryStage.show();
+
+    	
+
+    }
+}
